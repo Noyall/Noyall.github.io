@@ -79,6 +79,13 @@ nav {
   animation: fadeIn 2s ease-in-out forwards;
 }
 
+.college-logo {
+  width: 120px; /* Adjust size as necessary */
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
 section {
   padding: 40px 20px;
   max-width: 1200px;
