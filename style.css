@@ -1,0 +1,198 @@
+/* General settings */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.download-btn {
+    background-color: #0077b5; /* LinkedIn blue */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #005582; /* Darker blue on hover */
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, #e0f7fa, #f5f7fa);
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.college-logos {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.college-logo {
+    width: 60px;
+    height: auto;
+    opacity: 0.9;
+    transition: transform 0.3s;
+}
+
+.college-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Styling for the Al Rajhi logo */
+.college-logo[src="assets/rajhi.png"] {
+    width: 80px;
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+section {
+    padding: 60px 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skills-grid div {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for skills and languages */
+.skills-grid div:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.experience-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.experience-card li::before {
+    content: "• ";
+    color: #4CAF50;
+}
+
+.experience-card img {
+    margin-top: 20px;
+    width: 80px;
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.education-item {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.edu-logo {
+    width: 80px;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.edu-logo:hover {
+    transform: scale(1.1);
+}
+
+.contact {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Animation */
+section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Small card for Languages section */
+.small-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
