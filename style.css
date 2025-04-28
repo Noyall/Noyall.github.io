@@ -5,15 +5,16 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f9fb;
   color: #333;
 }
 
 header {
-  background-color: #2C3E50;
+  background-color: #f0f4f8;
   padding: 20px;
-  color: #fff;
+  color: #2C3E50;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -29,12 +30,13 @@ nav {
 
 .nav-links a {
   margin-left: 20px;
-  color: #fff;
+  color: #34495e;
   text-decoration: none;
   font-size: 18px;
 }
 
 .nav-links a:hover {
+  color: #3498db;
   text-decoration: underline;
 }
 
@@ -55,11 +57,13 @@ nav {
   text-align: center;
   background-color: #ecf0f1;
   padding: 60px 20px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .hero h1 {
   font-size: 40px;
   color: #34495e;
+  margin-bottom: 10px;
 }
 
 .hero p {
@@ -71,12 +75,15 @@ nav {
   width: 150px;
   border-radius: 50%;
   margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
 section {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  animation: slideUp 1s ease-out;
 }
 
 section h2 {
@@ -104,6 +111,11 @@ section p {
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  transition: transform 0.3s;
+}
+
+.skills-grid div:hover {
+  transform: scale(1.1);
 }
 
 .experience-card {
@@ -136,8 +148,8 @@ section p {
 }
 
 footer {
-  background-color: #2C3E50;
-  color: #fff;
+  background-color: #f0f4f8;
+  color: #2C3E50;
   text-align: center;
   padding: 20px 0;
 }
@@ -158,4 +170,14 @@ footer p {
   .hero p {
     font-size: 16px;
   }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
