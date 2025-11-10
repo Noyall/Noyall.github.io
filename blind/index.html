@@ -2,45 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Accessible Photos for Blind Users</title>
+    <title>Web site to interact with blind people</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        figure {
+            margin-bottom: 30px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .desc-label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Accessible Photo Page</h1>
-        <p>
-            This page is designed so that blind users can understand the images
-            through screen reader descriptions.
-        </p>
-    </header>
+    <h1>Web site to interact with blind people</h1>
 
-    <main>
-        <!-- First picture -->
-        <section>
-            <h2>Photo 1</h2>
+    <p>
+        This web page shows two famous historical places. Each picture has a text
+        description that can be read by a screen reader so that blind people can
+        know what is in the displayed pictures.
+    </p>
 
-            <!-- Replace "photo1.jpg" with your real file name -->
-            <figure>
-                <img src="photo1.jpg"
-                     alt="A young man sitting in a park on a sunny day, smiling and holding a book">
-                <figcaption>
-                    A young man is enjoying a sunny day in the park while reading a book.
-                </figcaption>
-            </figure>
-        </section>
+    <!-- Photo 1: Pyramids -->
+    <h2>Photo 1 – Pyramids of Giza</h2>
+    <figure>
+        <img src="pyramids.jpg"
+             alt="A wide view of the three large Pyramids of Giza in the Egyptian desert under a bright blue sky with thin white clouds.">
+        <figcaption>
+            <span class="desc-label">Description:</span>
+            The picture shows the three large Pyramids of Giza standing in the
+            yellow desert. The sky above them is bright blue with light white
+            clouds.
+        </figcaption>
+    </figure>
 
-        <!-- Second picture -->
-        <section>
-            <h2>Photo 2</h2>
-
-            <!-- Replace "photo2.jpg" with your real file name -->
-            <figure>
-                <img src="photo2.jpg"
-                     alt="A busy city street at night with colorful lights, cars, and people walking on the sidewalk">
-                <figcaption>
-                    A busy city street at night full of lights, traffic, and people walking.
-                </figcaption>
-            </figure>
-        </section>
-    </main>
+    <!-- Photo 2: Colosseum -->
+    <h2>Photo 2 – Colosseum in Rome</h2>
+    <figure>
+        <img src="colosseum.jpg"
+             alt="The Colosseum in Rome on a sunny day, with many arches, green grass in the front, and a crowd of tourists walking near the building.">
+        <figcaption>
+            <span class="desc-label">Description:</span>
+            The picture shows the Colosseum in Rome. The old stone building is
+            full of arches. There is green grass in the front and a crowd of
+            tourists walking near the Colosseum under a clear blue sky.
+        </figcaption>
+    </figure>
 </body>
 </html>
