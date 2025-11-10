@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodGo – Profile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="title">Profile</div>
+    <div class="subtitle">Set your name and tap on the map to choose your home.</div>
+  </header>
+
+  <main class="profile-main">
+    <section class="card profile-card">
+      <div class="card-title">Your info</div>
+      <div class="field">
+        <label for="nameInput">Full name</label>
+        <input id="nameInput" type="text" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="locationInput">City / area (for the map)</label>
+        <input id="locationInput" type="text" placeholder="Riyadh – Al Olaya">
+      </div>
+      <button class="btn-save" id="saveBtn">Save</button>
+      <div class="status" id="statusMsg" style="display:none;">Saved</div>
+    </section>
+
+    <section class="map-wrapper">
+      <div class="map-title">Home location</div>
+      <div class="map-note">The map is centered on your city. Click to place the 🏠 icon on your house.</div>
+      <div class="profile-map-frame">
+        <iframe id="profileMap" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="profile-overlay" id="profileOverlay">
+          <div class="profile-marker" id="profileHomeMarker">🏠</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tab-bar">
+    <div class="tab" onclick="go('index.html')">
+      <span>🏠</span>Home
+    </div>
+    <div class="tab" onclick="go('cart.html')">
+      <span>🧾</span>Cart
+    </div>
+    <div class="tab active" onclick="go('profile.html')">
+      <span>👤</span>Profile
+    </div>
+  </nav>
+</div>
+
+<script>
+  function go(p){window.location.href=p;}
+
+  const nameInput=document.getElementById("nameInput");
+  const locInput=document.getElementById("locationInput");
+  const map=document.getElementById("profileMap");
+  const statusMsg=document.getElementById("statusMsg");
+  const btnSave=document.getElementById("saveBtn");
+  const overlay=document.getElementById("profileOverlay");
+  const homeMark=document.getElementById("profileHomeMarker");
+
+  function updateMap(location){
+    map.src="https://www.google.com/maps?q="+encodeURIComponent(location)+"&z=14&output=embed";
+  }
+
+  function placeHomeMarker(px,py){
+    homeMark.style.left=px+"px";
+    homeMark.style.top=py+"px";
+  }
+
+  function loadData(){
+    const name=localStorage.getItem("foodgoName")||"";
+    const loc=localStorage.getItem("foodgoLocation")||"Riyadh – Al Olaya";
+    nameInput.value=name;
+    locInput.value=loc;
+    updateMap(loc);
+
+    const defX=0.75,defY=0.65;
+    const homeX=parseFloat(localStorage.getItem("foodgoHomeX")||String(defX));
+    const homeY=parseFloat(localStorage.getItem("foodgoHomeY")||String(defY));
+
+    requestAnimationFrame(()=>{
+      const rect=overlay.getBoundingClientRect();
+      placeHomeMarker(homeX*rect.width,homeY*rect.height);
+    });
+  }
+
+  btnSave.addEventListener("click",()=>{
+    const name=(nameInput.value||"").trim()||"Guest";
+    const loc=(locInput.value||"").trim()||"Riyadh – Al Olaya";
+    localStorage.setItem("foodgoName",name);
+    localStorage.setItem("foodgoLocation",loc);
+    updateMap(loc);
+    statusMsg.style.display="block";
+    setTimeout(()=>statusMsg.style.display="none",1500);
+  });
+
+  overlay.addEventListener("click",e=>{
+    const rect=overlay.getBoundingClientRect();
+    const x=e.clientX-rect.left;
+    const y=e.clientY-rect.top;
+    const px=x/rect.width;
+    const py=y/rect.height;
+    placeHomeMarker(x,y);
+    localStorage.setItem("foodgoHomeX",String(px));
+    localStorage.setItem("foodgoHomeY",String(py));
+  });
+
+  loadData();
+</script>
+</body>
+</html>

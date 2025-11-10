@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order tracking – FoodGo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: #f2f2f7;
+      color: #111827;
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 18px 18px 10px;
+      background: #f2f2f7;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-main {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .title-sub {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .eta-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #111827;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    main {
+      flex: 1;
+      padding: 10px 18px 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Map card */
+    .map-card {
+      background: #ddeafe;
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 4px 14px rgba(15,23,42,0.16);
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    .map-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .map-inner {
+      position: absolute;
+      inset: 48px 12px 12px 12px;
+      border-radius: 16px;
+      background: #c7e0ff;
+      overflow: hidden;
+    }
+
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(#ffffff40 1px, transparent 1px),
+        linear-gradient(90deg, #ffffff40 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.7;
+    }
+
+    .map-road {
+      position: absolute;
+      top: 40%;
+      left: 5%;
+      right: 5%;
+      height: 40px;
+      background: #1d4ed8;
+      border-radius: 999px;
+      box-shadow: 0 0 0 6px #1d4ed880;
+    }
+
+    .map-road::after {
+      content: "";
+      position: absolute;
+      inset: 18px 16px;
+      border-top: 3px dashed #bfdbfe;
+    }
+
+    .map-pin {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #ef4444;
+      border: 3px solid #fee2e2;
+      top: 22%;
+      left: 12%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .map-home {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background: #16a34a;
+      border: 3px solid #bbf7d0;
+      top: 60%;
+      right: 10%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .map-car {
+      position: absolute;
+      width: 26px;
+      height: 18px;
+      border-radius: 999px;
+      background: #111827;
+      top: 43%;
+      left: 12%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fbbf24;
+      font-size: 1

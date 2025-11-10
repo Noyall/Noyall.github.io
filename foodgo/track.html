@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order tracking – FoodGo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="top-row">
+      <button class="back-btn" onclick="window.location.href='index.html'">‹</button>
+      <span>Back to home</span>
+    </div>
+    <div class="title-row">
+      <div>
+        <div class="title-main">Order on the way</div>
+        <div class="title-sub" id="titleSub">Driver is heading to you now.</div>
+      </div>
+      <div class="eta-pill" id="etaPill">ETA: 30 min</div>
+    </div>
+  </header>
+
+  <main class="track-main">
+    <section class="map-card">
+      <div class="map-title">Live map</div>
+      <div class="map-note">Your home pin and the driver are shown on top of Google Maps.</div>
+      <div class="map-frame">
+        <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-overlay" id="trackOverlay">
+          <div class="marker" id="homeMarker">🏠</div>
+          <div class="marker" id="carMarker">🚗</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <div class="info-title">Delivery details</div>
+      <div class="order-summary">
+        <div id="orderLine">Restaurant · 0 items</div>
+        <div>Total: <span id="orderTotal">0 SAR</span></div>
+        <div id="orderAddress" style="font-size:12px;color:#6b7280;margin-top:3px;">
+          Delivering to your saved home location.
+        </div>
+      </div>
+
+      <div class="driver-box">
+        <div class="driver-avatar">🧑‍✈️</div>
+        <div class="driver-text">
+          <div class="driver-name">Yousef · Toyota Yaris</div>
+          <div class="driver-meta">Plate: 1234 ABC · 5.0 ★ rating</div>
+          <div class="driver-buttons">
+            <button class="btn-outlined">📞 Call</button>
+            <button class="btn-solid">💬 Chat</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="step done">
+          <div class="step-dot"></div>
+          <div>
+            <div class="step-text-main">Order confirmed</div>
+            <div class="step-text-sub">Restaurant received your order.</div>
+          </div>
+        </div>
+        <div class="step done">
+          <div class="step-dot"></div>
+          <div>
+            <div class="step-text-main">Food prepared</div>
+            <div class="step-text-sub">Driver picked up your order.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot"></div>
+          <div>
+            <div class="step-text-main">On the way</div>
+            <div class="step-text-sub">Heading to your location.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot"></div>
+          <div>
+            <div class="step-text-main">Delivered</div>
+            <div class="step-text-sub">You will confirm when you receive it.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const loc=localStorage.getItem("foodgoLocation")||"Riyadh – Al Olaya";
+  const items=Number(localStorage.getItem("foodgoLastItems")||"0");
+  const total=Number(localStorage.getItem("foodgoLastTotal")||"0");
+  const restaurant=localStorage.getItem("foodgoLastRestaurant")||"Your restaurant";
+  document.getElementById("orderLine").textContent=restaurant+" · "+items+" item"+(items===1?"":"s");
+  document.getElementById("orderTotal").textContent=total+" SAR";
+  document.getElementById("orderAddress").textContent="Delivering to "+loc+".";
+  const mapFrame=document.getElementById("mapFrame");
+  mapFrame.src="https://www.google.com/maps?q="+encodeURIComponent(loc)+"&z=14&output=embed";
+  let eta=30;
+  const etaPill=document.getElementById("etaPill");
+  const titleSub=document.getElementById("titleSub");
+  function updateEta(){
+    etaPill.textContent="ETA: "+eta+" min";
+    if(eta<=10)titleSub.textContent="Almost there. Keep your phone nearby.";
+  }
+  updateEta();
+  const timer=setInterval(()=>{
+    if(eta>5){eta-=1;updateEta();}
+    else{clearInterval(timer);etaPill.textContent="ETA: 5 min or less";titleSub.textContent="Driver is very close to your location.";}
+  },60000);
+
+  const overlay=document.getElementById("trackOverlay");
+  const homeMark=document.getElementById("homeMarker");
+  const carMark=document.getElementById("carMarker");
+  let homeX=parseFloat(localStorage.getItem("foodgoHomeX")||"0.8");
+  let homeY=parseFloat(localStorage.getItem("foodgoHomeY")||"0.7");
+  function placeMarker(el,x,y){
+    el.style.left=(x*100)+"%";
+    el.style.top=(y*100)+"%";
+  }
+  let carX=0.12;
+  let carY=0.28;
+  placeMarker(homeMark,homeX,homeY);
+  placeMarker(carMark,carX,carY);
+  function stepCar(){
+    const dx=homeX-carX;
+    const dy=homeY-carY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<0.003){
+      const t=Date.now()/900;
+      const wiggleX=homeX+Math.sin(t)*0.004;
+      const wiggleY=homeY+Math.cos(t)*0.004;
+      placeMarker(carMark,wiggleX,wiggleY);
+      requestAnimationFrame(stepCar);
+      return;
+    }
+    carX+=dx*0.01;
+    carY+=dy*0.01;
+    placeMarker(carMark,carX,carY);
+    requestAnimationFrame(stepCar);
+  }
+  requestAnimationFrame(stepCar);
+</script>
+</body>
+</html>

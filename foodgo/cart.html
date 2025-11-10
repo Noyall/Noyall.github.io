@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodGo – Orders</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="title">Your orders</div>
+    <div class="subtitle">See what you ordered recently.</div>
+  </header>
+
+  <main id="ordersList" class="orders-main"></main>
+
+  <nav class="tab-bar">
+    <div class="tab" onclick="go('index.html')">
+      <span>🏠</span>Home
+    </div>
+    <div class="tab active" onclick="go('cart.html')">
+      <span>🧾</span>Cart
+    </div>
+    <div class="tab" onclick="go('profile.html')">
+      <span>👤</span>Profile
+    </div>
+  </nav>
+</div>
+
+<script>
+  function go(p){window.location.href=p;}
+  const list=document.getElementById("ordersList");
+  const orders=JSON.parse(localStorage.getItem("foodgoOrders")||"[]").reverse();
+  if(orders.length===0){
+    list.innerHTML='<p class="empty">No orders yet. Go to Home and place your first order.</p>';
+  }else{
+    orders.forEach(order=>{
+      const time=new Date(order.time);
+      const div=document.createElement("div");
+      div.className="order-card";
+      div.innerHTML=
+        '<div class="order-top">'+
+          '<div class="order-restaurant">'+order.restaurant+'</div>'+
+          '<div class="order-total"><span>'+order.total+' SAR</span></div>'+
+        '</div>'+
+        '<div class="order-meta">'+
+          '<span>'+order.items+' item'+(order.items===1?"":"s")+'</span>'+
+          '<span>'+time.toLocaleString()+'</span>'+
+        '</div>';
+      list.appendChild(div);
+    });
+  }
+</script>
+</body>
+</html>

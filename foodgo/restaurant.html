@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant – FoodGo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="top-row">
+      <button class="back-btn" onclick="window.location.href='index.html'">‹</button>
+      <span>Back to restaurants</span>
+    </div>
+    <div class="restaurant-info">
+      <div class="rest-logo">
+        <img id="restLogo" src="" alt="Restaurant logo">
+      </div>
+      <div class="rest-text">
+        <h1 id="restName">Restaurant</h1>
+        <p id="restLocation">Description</p>
+        <div class="rest-meta" id="restMeta"></div>
+      </div>
+    </div>
+    <div class="chip-row">
+      <div class="chip active">Featured</div>
+      <div class="chip">Meals</div>
+      <div class="chip">Burgers</div>
+      <div class="chip">Drinks</div>
+      <div class="chip">Desserts</div>
+    </div>
+  </header>
+
+  <main id="menuRoot" class="restaurant-main"></main>
+
+  <div class="cart-bar">
+    <div class="cart-inner" id="cartBar">
+      <div>
+        <div id="cartTitle">Cart is empty</div>
+        <div class="cart-count" id="cartCount">Add items to start your order</div>
+      </div>
+      <div id="cartTotal">0 SAR</div>
+    </div>
+  </div>
+</div>
+
+<div class="sheet-backdrop" id="sheetBackdrop">
+  <div class="sheet">
+    <div class="sheet-header">
+      <div class="sheet-title">Checkout</div>
+      <button class="sheet-close" id="sheetClose">×</button>
+    </div>
+    <div class="sheet-total">
+      <span id="sheetItems">0 items</span> · <span id="sheetAmount">0 SAR</span>
+    </div>
+
+    <div class="pay-option active" data-method="apple">
+      <div class="pay-label">
+        <div class="pay-pill"> Pay</div>
+        <span>Pay with Apple Pay</span>
+      </div>
+      <span>•••• 1234</span>
+    </div>
+
+    <div class="pay-option" data-method="card">
+      <div class="pay-label">
+        <span>💳</span>
+        <span>Credit / debit card</span>
+      </div>
+      <span>New card</span>
+    </div>
+
+    <div class="pay-option" data-method="cash">
+      <div class="pay-label">
+        <span>💵</span>
+        <span>Cash on delivery</span>
+      </div>
+      <span>Pay to driver</span>
+    </div>
+
+    <button class="sheet-btn" id="sheetConfirm">Confirm order</button>
+    <div class="sheet-note">Demo only – no real payment.</div>
+  </div>
+</div>
+
+<script>
+  const configs={
+    mcd:{
+      id:"mcd",
+      name:"McDonald's",
+      logo:"images/mac.png",
+      description:"Burgers · Fries · Soft drinks",
+      meta:"⭐ 4.6 · 20–30 min · Delivery 7 SAR",
+      menu:[
+        {section:"Featured",title:"Big Mac Meal",desc:"Big Mac burger with fries and soft drink.",price:32,img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80"},
+        {section:"Featured",title:"McChicken",desc:"Crispy chicken burger with lettuce and mayo.",price:20,img:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"French Fries (Large)",desc:"Golden crispy salted fries.",price:10,img:"images/fries.png"},
+        {section:"Drinks & sides",title:"Coca-Cola",desc:"330ml soft drink, served cold.",price:6,img:"https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=900&q=80"}
+      ]
+    },
+    kudu:{
+      id:"kudu",
+      name:"Kudu",
+      logo:"images/kudu.png",
+      description:"Sandwiches · Breakfast",
+      meta:"⭐ 4.4 · 25–35 min · Delivery 5 SAR",
+      menu:[
+        {section:"Featured",title:"Chicken Sandwich",desc:"Grilled chicken sandwich with fresh veggies.",price:24,img:"https://images.unsplash.com/photo-1604908176997-1251884b08a0?auto=format&fit=crop&w=900&q=80"},
+        {section:"Featured",title:"Breakfast Plate",desc:"Eggs, beans and fresh bread.",price:22,img:"https://images.unsplash.com/photo-1546069901-5ec6a79120b0?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Hash Browns",desc:"Crispy potato hash browns.",price:8,img:"https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Orange Juice",desc:"Freshly squeezed orange juice.",price:9,img:"https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=900&q=80"}
+      ]
+    },
+    pizza:{
+      id:"pizza",
+      name:"Pizza Corner",
+      logo:"images/pizza.png",
+      description:"Italian · Pizza",
+      meta:"⭐ 4.7 · 30–40 min · Delivery Free",
+      menu:[
+        {section:"Featured",title:"Pepperoni Pizza",desc:"Classic pepperoni with mozzarella cheese.",price:38,img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80"},
+        {section:"Featured",title:"Margherita Pizza",desc:"Tomato, basil and fresh mozzarella.",price:34,img:"https://images.unsplash.com/photo-1548365328-9daaf8b77b23?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Garlic Bread",desc:"Toasted bread with garlic and cheese.",price:12,img:"https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Soft Drink",desc:"Cold soft drink 330ml.",price:6,img:"https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=900&q=80"}
+      ]
+    },
+    shawarma:{
+      id:"shawarma",
+      name:"Shawarma",
+      logo:"images/shawarma.png",
+      description:"Shawarma · Grills",
+      meta:"⭐ 4.3 · 25–35 min · Delivery 6 SAR",
+      menu:[
+        {section:"Featured",title:"Chicken Shawarma",desc:"Traditional chicken shawarma wrap.",price:18,img:"https://images.unsplash.com/photo-1608038509085-7bb9d5c0d52d?auto=format&fit=crop&w=900&q=80"},
+        {section:"Featured",title:"Meat Shawarma",desc:"Beef shawarma with tahini.",price:22,img:"https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"French Fries",desc:"Crispy fries on the side.",price:9,img:"images/fries.png"},
+        {section:"Drinks & sides",title:"Water",desc:"Cold bottled water.",price:3,img:"https://images.unsplash.com/photo-1560840065-bc95d0171bb4?auto=format&fit=crop&w=900&q=80"}
+      ]
+    },
+    sushi:{
+      id:"sushi",
+      name:"Sushi Box",
+      logo:"images/sushi.png",
+      description:"Sushi · Asian",
+      meta:"⭐ 4.5 · 35–45 min · Delivery 8 SAR",
+      menu:[
+        {section:"Featured",title:"Salmon Rolls",desc:"Fresh salmon maki rolls.",price:42,img:"https://images.unsplash.com/photo-1546069901-5ec6a79120b0?auto=format&fit=crop&w=900&q=80"},
+        {section:"Featured",title:"California Rolls",desc:"Crab, avocado and cucumber.",price:36,img:"https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Miso Soup",desc:"Hot miso soup with tofu.",price:10,img:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80"},
+        {section:"Drinks & sides",title:"Green Tea",desc:"Hot Japanese green tea.",price:7,img:"https://images.unsplash.com/photo-1548865169-29fc5f7469a0?auto=format&fit=crop&w=900&q=80"}
+      ]
+    }
+  };
+
+  const restId=localStorage.getItem("foodgoRestaurantId")||"mcd";
+  const cfg=configs[restId]||configs.mcd;
+
+  document.title=cfg.name+" – FoodGo";
+  document.getElementById("restLogo").src=cfg.logo;
+  document.getElementById("restLogo").alt=cfg.name+" logo";
+  document.getElementById("restName").textContent=cfg.name;
+  const savedLoc=localStorage.getItem("foodgoLocation");
+  const locText=savedLoc?("Delivering to "+savedLoc+" · "+cfg.description):cfg.description;
+  document.getElementById("restLocation").textContent=locText;
+  document.getElementById("restMeta").textContent=cfg.meta;
+
+  const menuRoot=document.getElementById("menuRoot");
+  let currentSection="";
+  cfg.menu.forEach(item=>{
+    if(item.section!==currentSection){
+      currentSection=item.section;
+      const h=document.createElement("div");
+      h.className="section-title";
+      h.textContent=currentSection;
+      menuRoot.appendChild(h);
+    }
+    const card=document.createElement("article");
+    card.className="menu-card";
+    card.dataset.price=item.price;
+    card.innerHTML=
+      '<div class="menu-img"><img src="'+item.img+'" alt="'+item.title+'"></div>'+
+      '<div class="menu-text">'+
+        '<div class="menu-title">'+item.title+'</div>'+
+        '<div class="menu-desc">'+item.desc+'</div>'+
+        '<div class="menu-bottom">'+
+          '<div class="menu-price">'+item.price+' SAR</div>'+
+          '<button class="add-btn" type="button">Add</button>'+
+        '</div>'+
+      '</div>';
+    menuRoot.appendChild(card);
+  });
+
+  let itemCount=0,total=0;
+  const cards=document.querySelectorAll(".menu-card");
+  const cartTitle=document.getElementById("cartTitle");
+  const cartCount=document.getElementById("cartCount");
+  const cartTotal=document.getElementById("cartTotal");
+  const cartBar=document.getElementById("cartBar");
+
+  cards.forEach(card=>{
+    const btn=card.querySelector(".add-btn");
+    const price=Number(card.dataset.price||0);
+    const title=card.querySelector(".menu-title").textContent;
+    btn.addEventListener("click",()=>{
+      itemCount+=1;
+      total+=price;
+      cartTitle.textContent=itemCount+" item"+(itemCount>1?"s":"")+" in cart";
+      cartCount.textContent="Last added: "+title;
+      cartTotal.textContent=total+" SAR";
+    });
+  });
+
+  const backdrop=document.getElementById("sheetBackdrop");
+  const sheetItems=document.getElementById("sheetItems");
+  const sheetAmount=document.getElementById("sheetAmount");
+  const btnClose=document.getElementById("sheetClose");
+  const btnConfirm=document.getElementById("sheetConfirm");
+  const payOptions=document.querySelectorAll(".pay-option");
+
+  cartBar.addEventListener("click",()=>{
+    if(itemCount===0){
+      cartCount.textContent="Add something from the menu first 🙂";
+      return;
+    }
+    sheetItems.textContent=itemCount+" item"+(itemCount>1?"s":"");
+    sheetAmount.textContent=total+" SAR";
+    backdrop.classList.add("show");
+  });
+
+  btnClose.addEventListener("click",()=>backdrop.classList.remove("show"));
+  backdrop.addEventListener("click",e=>{if(e.target===backdrop)backdrop.classList.remove("show");});
+
+  payOptions.forEach(opt=>{
+    opt.addEventListener("click",()=>{
+      payOptions.forEach(o=>o.classList.remove("active"));
+      opt.classList.add("active");
+    });
+  });
+
+  btnConfirm.addEventListener("click",()=>{
+    if(itemCount===0)return;
+    const orders=JSON.parse(localStorage.getItem("foodgoOrders")||"[]");
+    orders.push({restaurant:cfg.name,items:itemCount,total:total,time:new Date().toISOString()});
+    localStorage.setItem("foodgoOrders",JSON.stringify(orders));
+    localStorage.setItem("foodgoLastItems",String(itemCount));
+    localStorage.setItem("foodgoLastTotal",String(total));
+    localStorage.setItem("foodgoLastRestaurant",cfg.name);
+    window.location.href="track.html";
+  });
+</script>
+</body>
+</html>

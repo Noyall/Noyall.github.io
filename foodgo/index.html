@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodGo – Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="app-title-row">
+      <div>
+        <div class="app-title">FoodGo</div>
+        <div class="subtitle">
+          <span id="greetingName">Welcome</span>, choose a restaurant to start your order.
+        </div>
+      </div>
+      <button class="location-pill" id="locationPill">
+        <span class="location-dot"></span>
+        <span id="locationText">Riyadh – Al Olaya</span>
+        <span style="font-size:11px;">▾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="section-label">Nearby restaurants</div>
+
+    <article class="card home-card" onclick="openRestaurant('mcd')">
+      <img src="images/mac.png" alt="McDonald's">
+      <div class="card-body">
+        <div class="card-row">
+          <div class="card-name">McDonald's</div>
+          <div class="card-rating">⭐ 4.6 · 20–30 min</div>
+        </div>
+        <div class="card-tags">Burgers · Fries · Soft drinks</div>
+        <div class="card-meta">
+          <span>Delivery 7 SAR</span>
+          <span>Min 25 SAR</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card home-card" onclick="openRestaurant('kudu')">
+      <img src="images/kudu.png" alt="Kudu">
+      <div class="card-body">
+        <div class="card-row">
+          <div class="card-name">Kudu</div>
+          <div class="card-rating">⭐ 4.4 · 25–35 min</div>
+        </div>
+        <div class="card-tags">Sandwiches · Breakfast</div>
+        <div class="card-meta">
+          <span>Delivery 5 SAR</span>
+          <span>Min 20 SAR</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card home-card" onclick="openRestaurant('pizza')">
+      <img src="images/pizza.png" alt="Pizza Corner">
+      <div class="card-body">
+        <div class="card-row">
+          <div class="card-name">Pizza Corner</div>
+          <div class="card-rating">⭐ 4.7 · 30–40 min</div>
+        </div>
+        <div class="card-tags">Italian · Pizza</div>
+        <div class="card-meta">
+          <span>Delivery Free</span>
+          <span>Min 35 SAR</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card home-card" onclick="openRestaurant('shawarma')">
+      <img src="images/shawarma.png" alt="Shawarma">
+      <div class="card-body">
+        <div class="card-row">
+          <div class="card-name">Shawarma</div>
+          <div class="card-rating">⭐ 4.3 · 25–35 min</div>
+        </div>
+        <div class="card-tags">Shawarma · Grills</div>
+        <div class="card-meta">
+          <span>Delivery 6 SAR</span>
+          <span>Min 30 SAR</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card home-card" onclick="openRestaurant('sushi')">
+      <img src="images/sushi.png" alt="Sushi Box">
+      <div class="card-body">
+        <div class="card-row">
+          <div class="card-name">Sushi Box</div>
+          <div class="card-rating">⭐ 4.5 · 35–45 min</div>
+        </div>
+        <div class="card-tags">Sushi · Asian</div>
+        <div class="card-meta">
+          <span>Delivery 8 SAR</span>
+          <span>Min 40 SAR</span>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <nav class="tab-bar">
+    <div class="tab active" onclick="go('index.html')">
+      <span>🏠</span>Home
+    </div>
+    <div class="tab" onclick="go('cart.html')">
+      <span>🧾</span>Cart
+    </div>
+    <div class="tab" onclick="go('profile.html')">
+      <span>👤</span>Profile
+    </div>
+  </nav>
+</div>
+
+<script>
+  const pill=document.getElementById("locationPill");
+  const text=document.getElementById("locationText");
+  const greeting=document.getElementById("greetingName");
+  const savedLoc=localStorage.getItem("foodgoLocation")||"Riyadh – Al Olaya";
+  const savedName=localStorage.getItem("foodgoName")||"Guest";
+  text.textContent=savedLoc;
+  greeting.textContent="Welcome, "+savedName;
+  pill.addEventListener("click",()=>{
+    const v=prompt("Where should we deliver?",text.textContent);
+    if(v){text.textContent=v;localStorage.setItem("foodgoLocation",v);}
+  });
+  function go(p){window.location.href=p;}
+  function openRestaurant(id){
+    localStorage.setItem("foodgoRestaurantId",id);
+    window.location.href="restaurant.html";
+  }
+</script>
+</body>
+</html>
