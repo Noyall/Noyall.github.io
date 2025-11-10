@@ -26,6 +26,10 @@
         .desc-label {
             font-weight: bold;
         }
+        .audio-label {
+            margin-top: 5px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -33,11 +37,11 @@
 
     <p>
         This web page shows two famous historical places. Each picture has a text
-        description that can be read by a screen reader so that blind people can
-        know what is in the displayed pictures.
+        description and an audio description that can be read or played by a
+        screen reader so that blind people can know what is in the displayed
+        pictures.
     </p>
 
-    <!-- Photo 1: Pyramids -->
     <h2>Photo 1 – Pyramids of Giza</h2>
     <figure>
         <img src="Pyramids.jpg"
@@ -48,9 +52,14 @@
             yellow desert. The sky above them is bright blue with light white
             clouds.
         </figcaption>
+
+        <p class="audio-label">Audio description:</p>
+        <audio controls aria-label="Audio description of the Pyramids of Giza photo">
+            <source src="Pyramids.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </figure>
 
-    <!-- Photo 2: Colosseum -->
     <h2>Photo 2 – Colosseum in Rome</h2>
     <figure>
         <img src="colsseum.jpg"
@@ -61,6 +70,12 @@
             full of arches. There is green grass in the front and a crowd of
             tourists walking near the Colosseum under a clear blue sky.
         </figcaption>
+
+        <p class="audio-label">Audio description:</p>
+        <audio controls aria-label="Audio description of the Colosseum photo">
+            <source src="colsseum.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </figure>
 </body>
 </html>
