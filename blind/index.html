@@ -22,6 +22,7 @@
             height: auto;
             display: block;
             margin-bottom: 8px;
+            cursor: pointer;          
         }
         .desc-label {
             font-weight: bold;
@@ -44,8 +45,14 @@
 
     <h2>Photo 1 – Pyramids of Giza</h2>
     <figure>
-        <img src="Pyramids.jpg"
-             alt="A wide view of the three large Pyramids of Giza in the Egyptian desert under a bright blue sky with thin white clouds.">
+        <img
+            id="pyramidsPhoto"
+            src="Pyramids.jpg"
+            alt="A wide view of the three large Pyramids of Giza in the Egyptian desert under a bright blue sky with thin white clouds."
+            role="button"
+            tabindex="0"
+            aria-label="Play or pause the audio description for the Pyramids of Giza"
+        >
         <figcaption>
             <span class="desc-label">Description:</span>
             The picture shows the three large Pyramids of Giza standing in the
@@ -54,7 +61,11 @@
         </figcaption>
 
         <p class="audio-label">Audio description:</p>
-        <audio controls aria-label="Audio description of the Pyramids of Giza photo">
+        <audio
+            id="pyramidsAudio"
+            controls
+            aria-label="Audio description of the Pyramids of Giza photo"
+        >
             <source src="Pyramids.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -62,8 +73,14 @@
 
     <h2>Photo 2 – Colosseum in Rome</h2>
     <figure>
-        <img src="colsseum.jpg"
-             alt="The Colosseum in Rome on a sunny day, with many arches, green grass in the front, and a crowd of tourists walking near the building.">
+        <img
+            id="colosseumPhoto"
+            src="colsseum.jpg"
+            alt="The Colosseum in Rome on a sunny day, with many arches, green grass in the front, and a crowd of tourists walking near the building."
+            role="button"
+            tabindex="0"
+            aria-label="Play or pause the audio description for the Colosseum"
+        >
         <figcaption>
             <span class="desc-label">Description:</span>
             The picture shows the Colosseum in Rome. The old stone building is
@@ -72,10 +89,43 @@
         </figcaption>
 
         <p class="audio-label">Audio description:</p>
-        <audio controls aria-label="Audio description of the Colosseum photo">
+        <audio
+            id="colosseumAudio"
+            controls
+            aria-label="Audio description of the Colosseum photo"
+        >
             <source src="colsseum.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     </figure>
+
+    <script>
+        function hookImageToAudio(imageId, audioId) {
+            const img = document.getElementById(imageId);
+            const audio = document.getElementById(audioId);
+            if (!img || !audio) return;
+
+            function toggleAudio() {
+                if (audio.paused) {
+                    audio.currentTime = 0; 
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+
+            img.addEventListener('click', toggleAudio);
+
+            img.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleAudio();
+                }
+            });
+        }
+
+        hookImageToAudio('pyramidsPhoto', 'pyramidsAudio');
+        hookImageToAudio('colosseumPhoto', 'colosseumAudio');
+    </script>
 </body>
 </html>
