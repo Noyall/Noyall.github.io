@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FoodGo – FAQs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="style.css" rel="stylesheet" />
+  <style>
+    .faq-wrap{max-width:960px;margin:24px auto;padding:0 16px}
+    .faq-hero{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .faq-title{font-size:28px;margin:0;color:#111827}
+    .faq-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.06);margin-bottom:10px;overflow:hidden}
+    .faq-q{width:100%;text-align:left;background:#f9fafb;border:0;padding:14px 16px;font-size:16px;font-weight:700;color:#111827;cursor:pointer}
+    .faq-a{padding:12px 16px;color:#111827;display:none;border-top:1px solid #e5e7eb}
+    .faq-q:focus{outline:3px solid #22c55e;outline-offset:2px}
+    .faq-q[aria-expanded="true"]{background:#eef2ff}
+    .faq-actions{display:flex;gap:10px;align-items:center}
+    .btn-dark{background:#111827;color:#fff;border:0;border-radius:12px;padding:10px 14px;font-weight:700;text-decoration:none}
+    .btn-outline{background:#fff;color:#111827;border:1px solid #e5e7eb;border-radius:12px;padding:10px 14px;font-weight:700;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="faq-wrap">
+    <div class="faq-hero">
+      <h1 class="faq-title">FAQs</h1>
+      <div class="faq-actions">
+        <a class="btn-outline" href="index.html">← Home</a>
+        <a class="btn-dark" href="tel:+966500000000">📞 Call Support</a>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-q" aria-expanded="false">How do delivery times work?</button>
+      <div class="faq-a">Times like 20–30 min are estimates based on distance and restaurant load. After you confirm, the tracking page shows a live ETA as the driver moves.</div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-q" aria-expanded="false">How can I change my delivery location?</button>
+      <div class="faq-a">Open Profile and move your home pin on the map, then save. Your area is used to sort nearby restaurants and calculate ETA.</div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-q" aria-expanded="false">What payment methods are supported?</button>
+      <div class="faq-a">Apple Pay, card, and cash on delivery (availability may vary). Choose your payment in the checkout sheet before confirming.</div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-q" aria-expanded="false">Can I edit or cancel after confirming?</button>
+      <div class="faq-a">If preparation hasn’t started, contact support immediately (Call/WhatsApp). After that, changes might not be possible.</div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-q" aria-expanded="false">How do I contact support?</button>
+      <div class="faq-a">
+        Use the floating headset button on any page, or directly:
+        📞 <a href="tel:+966500000000">+966 50 000 0000</a> •
+        💬 <a href="https://wa.me/966500000000?text=Hi%20FoodGo%20Support" target="_blank" rel="noopener">WhatsApp</a> •
+        ✉️ <a href="mailto:support@foodgo.example?subject=FoodGo%20Support">Email</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const show = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(show));
+        btn.nextElementSibling.style.display = show ? 'block' : 'none';
+      });
+    });
+  </script>
+
+
+  <script src="support-widget.js" defer></script>
+</body>
+</html>
+
