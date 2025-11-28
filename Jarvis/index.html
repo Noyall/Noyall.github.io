@@ -41,11 +41,21 @@
         </div>
       </div>
 
-      <form id="request-form" class="request">
+      <form
+        id="request-form"
+        class="request"
+        action="https://formsubmit.co/noyalxx@gmail.com"
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="New Jarvis meeting request" />
+        <input type="hidden" name="day" id="day-field" />
+        <input type="hidden" name="time" id="time-field" />
+
         <div class="field">
           <label for="purpose">Purpose</label>
           <input
             id="purpose"
+            name="purpose"
             type="text"
             placeholder="Coffee, study, project, gaming..."
             required
@@ -54,18 +64,19 @@
 
         <div class="field">
           <label for="name">Your name</label>
-          <input id="name" type="text" required />
+          <input id="name" name="name" type="text" required />
         </div>
 
         <div class="field">
           <label for="contact">Your contact (email / phone)</label>
-          <input id="contact" type="text" required />
+          <input id="contact" name="contact" type="text" required />
         </div>
 
         <div class="field">
           <label for="details">Extra details (optional)</label>
           <textarea
             id="details"
+            name="details"
             rows="3"
             placeholder="Anything else you want to tell Jarvis?"
           ></textarea>
@@ -73,8 +84,7 @@
 
         <button type="submit" class="btn">Send request</button>
         <p class="small">
-          Your email app will open with everything filled in. Just press
-          <strong>Send</strong>. I’ll see it on my phone and accept or decline.
+          Your request will be sent directly to my email.
         </p>
       </form>
     </main>
