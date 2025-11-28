@@ -6,7 +6,6 @@ const busyDatesBase = [
   "2025-12-02",
   "2025-12-07",
   "2025-11-29"
-  
 ];
 
 const timeSlots = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
@@ -81,7 +80,6 @@ function buildCalendar(date) {
   const startingWeekday = firstDayOfMonth.getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const totalCells = 42;
-  const todayYMD = toYMD(today);
 
   let weekDiv = document.createElement("div");
   weekDiv.classList.add("week");
@@ -115,10 +113,6 @@ function buildCalendar(date) {
 
     const isPast = thisDate < today;
 
-    if (!isPast && ymd === todayYMD) {
-      btn.classList.add("today");
-    }
-
     const dot = document.createElement("span");
     dot.classList.add("dot");
     btn.appendChild(dot);
@@ -130,6 +124,9 @@ function buildCalendar(date) {
     if (isPast) {
       btn.classList.add("disabled");
     } else {
+      if (ymd === toYMD(today)) {
+        btn.classList.add("today");
+      }
       btn.addEventListener("click", () => onDayClick(btn));
     }
 
@@ -253,8 +250,6 @@ form.addEventListener("submit", (e) => {
   const fullDateLabel = formatFullDate(dateObj);
   const timeLabel = formatTimeLabel(selectedTime);
 
-  const subject = encodeURIComponent("New Jarvis meeting request");
-
   const lines = [
     "You have a new meeting request:",
     "",
@@ -268,10 +263,20 @@ form.addEventListener("submit", (e) => {
     "Reply to confirm, decline, or suggest another time."
   ].filter(Boolean);
 
-  const body = encodeURIComponent(lines.join("\n"));
-  const mailto = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
-  window.location.href = mailto;
+  const body = lines.join("\n");
+
+  const gmailUrl =
+    "https://mail.google.com/mail/?view=cm&fs=1" +
+    "&to=" +
+    encodeURIComponent(OWNER_EMAIL) +
+    "&su=" +
+    encodeURIComponent("New Jarvis meeting request") +
+    "&body=" +
+    encodeURIComponent(body);
+
+  window.open(gmailUrl, "_blank");
 });
 
 renderTimeSlots();
 buildCalendar(current);
+
