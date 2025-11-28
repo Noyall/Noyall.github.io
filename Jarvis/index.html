@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jarvis – Book a Time</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>JARVIS</h1>
+      <p>Book a coffee, meeting, or chat</p>
+    </header>
+
+    <main class="card">
+      <div class="calendar">
+        <div class="calendar-header">
+          <button id="prev-month" class="nav-btn" type="button">&#8249;</button>
+          <div id="month-label"></div>
+          <button id="next-month" class="nav-btn" type="button">&#8250;</button>
+        </div>
+
+        <div class="calendar-weekdays">
+          <span>Sun</span>
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+        </div>
+
+        <div id="calendar-rows" class="calendar-rows">
+          <div id="time-panel" class="time-panel">
+            <div class="time-panel-header">
+              <span id="selected-date-text" class="selected-date-label">Pick a day</span>
+              <span id="selected-time-text" class="selected-time-label"></span>
+            </div>
+            <div id="time-slots" class="time-slots"></div>
+          </div>
+        </div>
+      </div>
+
+      <form id="request-form" class="request">
+        <div class="field">
+          <label for="purpose">Purpose</label>
+          <input
+            id="purpose"
+            type="text"
+            placeholder="Coffee, study, project, gaming..."
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" type="text" required />
+        </div>
+
+        <div class="field">
+          <label for="contact">Your contact (email / phone)</label>
+          <input id="contact" type="text" required />
+        </div>
+
+        <div class="field">
+          <label for="details">Extra details (optional)</label>
+          <textarea
+            id="details"
+            rows="3"
+            placeholder="Anything else you want to tell Jarvis?"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn">Send request</button>
+        <p class="small">
+          Your email app will open with everything filled in. Just press
+          <strong>Send</strong>. I’ll see it on my phone and accept or decline.
+        </p>
+      </form>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
