@@ -239,11 +239,10 @@ form.addEventListener("submit", (e) => {
 
   const purpose = document.getElementById("purpose").value.trim();
   const name = document.getElementById("name").value.trim();
-  const contact = document.getElementById("contact").value.trim();
-  const details = document.getElementById("details").value.trim();
+  const phone = document.getElementById("phone").value.trim();
 
-  if (!purpose || !name || !contact) {
-    alert("Fill purpose, name, and contact.");
+  if (!purpose || !name || !phone) {
+    alert("Fill purpose, name, and phone number.");
     return;
   }
 
