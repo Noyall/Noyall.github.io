@@ -286,9 +286,18 @@ textarea {
   opacity: 0.96;
 }
 
-.small {
+.small,
+.status-message {
   margin-top: 6px;
   font-size: 0.8rem;
   color: #9ca3af;
   text-align: center;
+}
+
+.status-message.success {
+  color: #4ade80;
+}
+
+.status-message.error {
+  color: #f97373;
 }

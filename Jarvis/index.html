@@ -41,13 +41,7 @@
         </div>
       </div>
 
-      <form
-        id="request-form"
-        class="request"
-        action="https://formsubmit.co/noyalxx@gmail.com"
-        method="POST"
-      >
-        <input type="hidden" name="_subject" value="New Jarvis meeting request" />
+      <form id="request-form" class="request">
         <input type="hidden" name="day" id="day-field" />
         <input type="hidden" name="time" id="time-field" />
 
@@ -89,9 +83,7 @@
         </div>
 
         <button type="submit" class="btn">Send request</button>
-        <p class="small">
-          Your request will be sent directly to my email.
-        </p>
+        <p id="status-message" class="status-message"></p>
       </form>
     </main>
   </div>

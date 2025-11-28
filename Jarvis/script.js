@@ -1,3 +1,5 @@
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/noyalxx@gmail.com";
+
 const busyDatesBase = [
   "2025-12-04",
   "2025-12-03",
@@ -5,6 +7,7 @@ const busyDatesBase = [
   "2025-12-07",
   "2025-11-29"
 ];
+
 
 const timeSlots = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
@@ -20,6 +23,7 @@ const form = document.getElementById("request-form");
 
 const dayField = document.getElementById("day-field");
 const timeField = document.getElementById("time-field");
+const statusMessage = document.getElementById("status-message");
 
 let current = new Date();
 let selectedDate = null;
@@ -224,8 +228,11 @@ nextBtn.addEventListener("click", () => {
   buildCalendar(current);
 });
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  statusMessage.textContent = "";
+  statusMessage.classList.remove("success", "error");
 
   if (!selectedDate) {
     alert("Tap a day first.");
@@ -240,6 +247,7 @@ form.addEventListener("submit", (e) => {
   const purpose = document.getElementById("purpose").value.trim();
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
+  const details = document.getElementById("details").value.trim();
 
   if (!purpose || !name || !phone) {
     alert("Fill purpose, name, and phone number.");
@@ -250,10 +258,51 @@ form.addEventListener("submit", (e) => {
   const fullDateLabel = formatFullDate(dateObj);
   const timeLabel = formatTimeLabel(selectedTime);
 
-  dayField.value = `${fullDateLabel} (${selectedDate})`;
-  timeField.value = `${timeLabel} (${selectedTime})`;
+  const payload = {
+    _subject: "New Jarvis meeting request",
+    day: `${fullDateLabel} (${selectedDate})`,
+    time: `${timeLabel} (${selectedTime})`,
+    purpose,
+    name,
+    phone,
+    details
+  };
 
-  form.submit();
+  try {
+    statusMessage.textContent = "Sending...";
+    const response = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error("Request failed");
+    }
+
+    statusMessage.textContent = "Request sent ✔️ I’ll check my email and get back to you.";
+    statusMessage.classList.add("success");
+
+    form.reset();
+    selectedDate = null;
+    selectedTime = null;
+    selectedDateText.textContent = "Pick a day";
+    selectedTimeText.textContent = "";
+    rowsContainer
+      .querySelectorAll(".day.selected")
+      .forEach((d) => d.classList.remove("selected"));
+    timeSlotsContainer
+      .querySelectorAll(".time-slot.selected")
+      .forEach((t) => t.classList.remove("selected"));
+    timePanel.classList.remove("open");
+    panelOpen = false;
+  } catch (err) {
+    statusMessage.textContent = "Something went wrong. Please try again.";
+    statusMessage.classList.add("error");
+  }
 });
 
 renderTimeSlots();
