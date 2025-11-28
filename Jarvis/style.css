@@ -286,18 +286,42 @@ textarea {
   opacity: 0.96;
 }
 
-.small,
-.status-message {
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: #9ca3af;
+.confirm-card {
+  background: radial-gradient(circle at top, #111827, #020617);
+  border-radius: 22px;
+  padding: 40px 24px 32px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.8);
   text-align: center;
 }
 
-.status-message.success {
-  color: #4ade80;
+.big-check {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #38bdf8, #4ade80);
+  color: #020617;
+  font-size: 40px;
+  font-weight: 700;
 }
 
-.status-message.error {
-  color: #f97373;
+.confirm-card h1 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+}
+
+.confirm-card p {
+  margin: 0 0 16px;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.back-btn {
+  display: inline-block;
+  width: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
