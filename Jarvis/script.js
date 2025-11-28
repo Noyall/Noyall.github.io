@@ -2,8 +2,11 @@ const OWNER_EMAIL = "noyalqq@gmail.com";
 
 const busyDatesBase = [
   "2025-12-04",
-  "2025-12-05",
-  "2025-12-10"
+  "2025-12-03",
+  "2025-12-02",
+  "2025-12-07",
+  "2025-11-29"
+  
 ];
 
 const timeSlots = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
@@ -22,6 +25,9 @@ let current = new Date();
 let selectedDate = null;
 let selectedTime = null;
 let panelOpen = false;
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
 const dynamicBusyDates = new Set();
 
@@ -75,7 +81,7 @@ function buildCalendar(date) {
   const startingWeekday = firstDayOfMonth.getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const totalCells = 42;
-  const todayYMD = toYMD(new Date());
+  const todayYMD = toYMD(today);
 
   let weekDiv = document.createElement("div");
   weekDiv.classList.add("week");
@@ -102,11 +108,14 @@ function buildCalendar(date) {
     }
 
     const thisDate = new Date(year, month, dayIndex);
+    thisDate.setHours(0, 0, 0, 0);
     const ymd = toYMD(thisDate);
     btn.dataset.date = ymd;
     btn.textContent = thisDate.getDate();
 
-    if (ymd === todayYMD) {
+    const isPast = thisDate < today;
+
+    if (!isPast && ymd === todayYMD) {
       btn.classList.add("today");
     }
 
@@ -118,7 +127,11 @@ function buildCalendar(date) {
       btn.classList.add("busy");
     }
 
-    btn.addEventListener("click", () => onDayClick(btn));
+    if (isPast) {
+      btn.classList.add("disabled");
+    } else {
+      btn.addEventListener("click", () => onDayClick(btn));
+    }
 
     weekDiv.appendChild(btn);
   }
