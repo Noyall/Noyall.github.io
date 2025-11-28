@@ -126,6 +126,11 @@ body {
   cursor: default;
 }
 
+.day.disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
 .day.today {
   box-shadow: 0 0 0 1px #38bdf8;
 }
