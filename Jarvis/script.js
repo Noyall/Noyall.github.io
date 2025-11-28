@@ -1,5 +1,3 @@
-const OWNER_EMAIL = "noyalqq@gmail.com";
-
 const busyDatesBase = [
   "2025-12-04",
   "2025-12-03",
@@ -19,6 +17,9 @@ const timeSlotsContainer = document.getElementById("time-slots");
 const prevBtn = document.getElementById("prev-month");
 const nextBtn = document.getElementById("next-month");
 const form = document.getElementById("request-form");
+
+const dayField = document.getElementById("day-field");
+const timeField = document.getElementById("time-field");
 
 let current = new Date();
 let selectedDate = null;
@@ -250,33 +251,11 @@ form.addEventListener("submit", (e) => {
   const fullDateLabel = formatFullDate(dateObj);
   const timeLabel = formatTimeLabel(selectedTime);
 
-  const lines = [
-    "You have a new meeting request:",
-    "",
-    `From: ${name}`,
-    `Contact: ${contact}`,
-    `Day: ${fullDateLabel} (${selectedDate})`,
-    `Time: ${timeLabel} (${selectedTime})`,
-    `Purpose: ${purpose}`,
-    details ? `Details: ${details}` : "",
-    "",
-    "Reply to confirm, decline, or suggest another time."
-  ].filter(Boolean);
+  dayField.value = `${fullDateLabel} (${selectedDate})`;
+  timeField.value = `${timeLabel} (${selectedTime})`;
 
-  const body = lines.join("\n");
-
-  const gmailUrl =
-    "https://mail.google.com/mail/?view=cm&fs=1" +
-    "&to=" +
-    encodeURIComponent(OWNER_EMAIL) +
-    "&su=" +
-    encodeURIComponent("New Jarvis meeting request") +
-    "&body=" +
-    encodeURIComponent(body);
-
-  window.open(gmailUrl, "_blank");
+  form.submit();
 });
 
 renderTimeSlots();
 buildCalendar(current);
-
